@@ -15,7 +15,7 @@ public class JobsController {
 
     @Autowired
     private JobService jobService;
-
+    @CrossOrigin
     @GetMapping("/all")
     public @ResponseBody List<JobEntity> getAll(){
         return jobService.getAll();
@@ -28,6 +28,12 @@ public class JobsController {
         } catch (JobNotFoundException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PostMapping("/postjob")
+    public ResponseEntity postJob(@RequestBody JobEntity job){
+        jobService.createJob(job);
+        return ResponseEntity.ok("Vacancy was successfully created");
     }
 
 

@@ -28,5 +28,9 @@ public class JobService {
         return jobEntity;
     }
 
+    public void createJob(JobEntity jobEntity){
+        jobRepo.save(jobEntity);
+    }
+
 
 }
