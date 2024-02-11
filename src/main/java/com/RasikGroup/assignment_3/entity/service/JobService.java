@@ -1,0 +1,32 @@
+package com.RasikGroup.assignment_3.entity.service;
+
+import com.RasikGroup.assignment_3.entity.JobEntity;
+import com.RasikGroup.assignment_3.entity.repository.JobRepo;
+import com.RasikGroup.assignment_3.exception.JobNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class JobService {
+    @Autowired
+    private JobRepo jobRepo;
+
+    public List<JobEntity> getAll(){
+        List<JobEntity> userEntities = (List<JobEntity>) jobRepo.findAll();
+        return userEntities;
+    }
+
+    public JobEntity getById(Long id) throws JobNotFoundException {
+        Optional<JobEntity> jobEntities = jobRepo.findById(id);
+        JobEntity jobEntity = jobEntities.orElse(null);
+        if(jobEntity == null){
+            throw new JobNotFoundException("Job with this id not found");
+        }
+        return jobEntity;
+    }
+
+
+}
