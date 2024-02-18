@@ -1,6 +1,9 @@
 package com.RasikGroup.assignment_3.entity.service;
 
-import com.RasikGroup.assignment_3.entity.JobEntity;
+import com.RasikGroup.assignment_3.dtos.CreateJobRequest;
+import com.RasikGroup.assignment_3.entity.entities.CategoryEntity;
+import com.RasikGroup.assignment_3.entity.entities.JobEntity;
+import com.RasikGroup.assignment_3.entity.repository.CategoryRepo;
 import com.RasikGroup.assignment_3.entity.repository.JobRepo;
 import com.RasikGroup.assignment_3.exception.JobNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,8 @@ import java.util.Optional;
 public class JobService {
     @Autowired
     private JobRepo jobRepo;
+    @Autowired
+    private CategoryRepo categoryRepo;
 
     public List<JobEntity> getAll(){
         List<JobEntity> userEntities = (List<JobEntity>) jobRepo.findAll();
@@ -28,8 +33,21 @@ public class JobService {
         return jobEntity;
     }
 
-    public void createJob(JobEntity jobEntity){
+    public void createJob(CreateJobRequest createJobRequest){
+        CategoryEntity category = categoryRepo.getById(createJobRequest.getCategory());
+        JobEntity jobEntity = new JobEntity();
+        jobEntity.setCategory(category);
+        jobEntity.setLocation(createJobRequest.getLocation());
+        jobEntity.setTitle(createJobRequest.getTitle());
+        jobEntity.setSalary_range(createJobRequest.getSalary_range());
+        jobEntity.setRequirements(createJobRequest.getRequirements());
+        jobEntity.setDescription(createJobRequest.getDescription());
         jobRepo.save(jobEntity);
+
+    }
+
+    public void deleteJob(Long id){
+        jobRepo.deleteById(id);
     }
 
 

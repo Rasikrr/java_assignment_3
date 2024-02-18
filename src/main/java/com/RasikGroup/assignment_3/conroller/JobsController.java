@@ -1,6 +1,7 @@
 package com.RasikGroup.assignment_3.conroller;
 
-import com.RasikGroup.assignment_3.entity.JobEntity;
+import com.RasikGroup.assignment_3.dtos.CreateJobRequest;
+import com.RasikGroup.assignment_3.entity.entities.JobEntity;
 import com.RasikGroup.assignment_3.entity.service.JobService;
 import com.RasikGroup.assignment_3.exception.JobNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class JobsController {
     public @ResponseBody List<JobEntity> getAll(){
         return jobService.getAll();
     }
-
+    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity getJob(@PathVariable Long id){
         try{
@@ -29,11 +30,18 @@ public class JobsController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    @CrossOrigin
     @PostMapping("/postjob")
-    public ResponseEntity postJob(@RequestBody JobEntity job){
-        jobService.createJob(job);
-        return ResponseEntity.ok("Vacancy was successfully created");
+    public ResponseEntity postJob(@RequestBody CreateJobRequest createJobRequest){
+        jobService.createJob(createJobRequest);
+        return ResponseEntity.ok().body("{\"message\": \"Vacancy was successfully created\"}");
+    }
+
+    @CrossOrigin
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteJob(@PathVariable Long id){
+        jobService.deleteJob(id);
+        return ResponseEntity.ok().body("{\"message\": \"Vacancy was successfully deleted\"}");
     }
 
 

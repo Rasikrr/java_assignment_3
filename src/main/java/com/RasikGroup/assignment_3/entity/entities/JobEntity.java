@@ -1,5 +1,6 @@
-package com.RasikGroup.assignment_3.entity;
+package com.RasikGroup.assignment_3.entity.entities;
 
+import com.RasikGroup.assignment_3.dtos.CreateJobRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +31,6 @@ public class JobEntity {
     public String toString(){
         return String.format("ID: %d, Title: %s", this.id, this.title);
     }
+
 
 }

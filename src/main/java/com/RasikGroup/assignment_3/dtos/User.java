@@ -1,6 +1,6 @@
-package com.RasikGroup.assignment_3.model;
+package com.RasikGroup.assignment_3.dtos;
 
-import com.RasikGroup.assignment_3.entity.UserEntity;
+import com.RasikGroup.assignment_3.entity.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

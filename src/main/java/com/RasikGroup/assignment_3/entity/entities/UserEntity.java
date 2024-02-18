@@ -1,4 +1,4 @@
-package com.RasikGroup.assignment_3.entity;
+package com.RasikGroup.assignment_3.entity.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
