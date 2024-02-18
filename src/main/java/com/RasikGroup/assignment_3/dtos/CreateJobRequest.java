@@ -1,6 +1,7 @@
 package com.RasikGroup.assignment_3.dtos;
 
 
+import com.RasikGroup.assignment_3.entity.entities.JobEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
