@@ -1,27 +1,35 @@
-//package com.RasikGroup.assignment_3;
-//
-//import jakarta.servlet.DispatcherType;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.Customizer;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.web.SecurityFilterChain;
-//
-//
-//
-//@Configuration
-//public class SecurityBeans {
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests(
-//                        (authorize) -> authorize
-//                                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-//                                .requestMatchers("/admin").hasAuthority("ADMIN")
-//                                .requestMatchers("/user").hasAuthority("USER")
-//                                .anyRequest().authenticated())
-//                .httpBasic(Customizer.withDefaults())
-//                .formLogin(Customizer.withDefaults());
-//        return http.build();
-//    }
-//}
+package com.RasikGroup.assignment_3;
+
+import jakarta.servlet.DispatcherType;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.SecurityFilterChain;
+
+
+
+@Configuration
+public class SecurityBeans {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(
+                        (authorize) -> authorize
+                                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+                                .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/jobs/postjob").permitAll()
+                                .requestMatchers("/admin").hasAuthority("ADMIN")
+                                .requestMatchers("/jobs/all").permitAll()
+                                .requestMatchers("/jobs/{id}").permitAll()
+                                .requestMatchers("/categories/all").permitAll()
+                                .requestMatchers("/user/signup").permitAll()
+                                .anyRequest().authenticated())
+                .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults());
+        return http.build();
+    }
+}

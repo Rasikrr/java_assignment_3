@@ -1,6 +1,7 @@
 package com.RasikGroup.assignment_3.entity.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ public class UserEntity implements UserDetails {
     private String first_name;
     private String last_name;
     private String username;
+    @Column(length = 255)
     private String password;
     @Transient
     private String passwordConfirm;
