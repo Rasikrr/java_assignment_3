@@ -13,6 +13,6 @@ public class RegistrationRequest {
     private String last_name;
     private String username;
     private String password;
-//    private Long role;
+    private Long role_id;
     private String passwordConfirm;
 }

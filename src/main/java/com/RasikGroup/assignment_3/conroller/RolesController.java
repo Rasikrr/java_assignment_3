@@ -1,5 +1,6 @@
 package com.RasikGroup.assignment_3.conroller;
 
+import com.RasikGroup.assignment_3.dtos.RoleDTO;
 import com.RasikGroup.assignment_3.entity.entities.RoleEntity;
 import com.RasikGroup.assignment_3.entity.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class RolesController {
     private RoleService roleService;
 
     @GetMapping("/all")
-    public @ResponseBody List<RoleEntity> getAll(){
+    public @ResponseBody List<RoleDTO> getAll(){
         return roleService.getAllRoles();
 
     }

@@ -71,8 +71,7 @@ public class UserService implements UserDetailsService {
         }
 
         UserEntity user = new UserEntity();
-
-        RoleEntity role = roleRepo.getById(2L);
+        RoleEntity role = roleRepo.getById(registrationRequest.getRole_id());
         user.setRoles(Set.of(role));
         user.setPassword(bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
         user.setFirst_name(registrationRequest.getFirst_name());

@@ -39,12 +39,11 @@ public class SecurityBeans {
                             .requestMatchers("/jobs/all").permitAll()
                             .requestMatchers("/jobs/{id}").permitAll()
                             .requestMatchers("/categories/all").permitAll()
+                            .requestMatchers("/role/**").permitAll()
                             .requestMatchers("/user/signup").permitAll()
-//                            .requestMatchers("/user/login").permitAll()
                             .requestMatchers("/user/**").permitAll()
                             .anyRequest().authenticated())
             .csrf(AbstractHttpConfigurer::disable)
-//            .httpBasic(Customizer.withDefaults())
             .formLogin(AbstractAuthenticationFilterConfigurer::permitAll);
 
         return http.build();
