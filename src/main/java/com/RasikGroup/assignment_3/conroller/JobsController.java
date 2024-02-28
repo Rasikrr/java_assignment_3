@@ -2,6 +2,7 @@ package com.RasikGroup.assignment_3.conroller;
 
 import com.RasikGroup.assignment_3.dtos.JobRequest;
 import com.RasikGroup.assignment_3.dtos.CreateJobRequest;
+import com.RasikGroup.assignment_3.dtos.UpdateJobRequest;
 import com.RasikGroup.assignment_3.entity.entities.JobEntity;
 import com.RasikGroup.assignment_3.entity.service.JobService;
 import com.RasikGroup.assignment_3.exception.JobNotFoundException;
@@ -69,7 +70,6 @@ public class JobsController {
     @DeleteMapping("/applied/delete")
     public ResponseEntity deleteAppliedJob(@RequestBody JobRequest jobRequest){
         jobService.deleteAppliedJob(jobRequest);
-        System.out.println("OK");
         return ResponseEntity.ok().body("{\"message\": \"success\"}");
     }
 
@@ -79,5 +79,17 @@ public class JobsController {
         return jobService.getAllPostedById(id);
     }
 
+    @CrossOrigin
+    @PutMapping("/posted/update")
+    public ResponseEntity updateJob(@RequestBody UpdateJobRequest updateJobRequest){
+        try {
+            jobService.updateJob(updateJobRequest);
+            return ResponseEntity.ok().body("{\"message\": \"Vacancy was successfully created\"}");
+        } catch (JobValidationException jobValidationException){
+            return ResponseEntity.badRequest().body("{\"message\": \"Please check data\"}");
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("{\"message\": \"Please check data\"}");
+        }
+    }
 
 }

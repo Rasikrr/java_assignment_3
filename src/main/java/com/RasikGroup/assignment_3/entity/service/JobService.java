@@ -2,6 +2,7 @@ package com.RasikGroup.assignment_3.entity.service;
 
 import com.RasikGroup.assignment_3.dtos.JobRequest;
 import com.RasikGroup.assignment_3.dtos.CreateJobRequest;
+import com.RasikGroup.assignment_3.dtos.UpdateJobRequest;
 import com.RasikGroup.assignment_3.entity.entities.CategoryEntity;
 import com.RasikGroup.assignment_3.entity.entities.JobEntity;
 import com.RasikGroup.assignment_3.entity.entities.UserEntity;
@@ -45,7 +46,7 @@ public class JobService {
         if(category_id == 0){
             throw new JobValidationException("Invalid category");
         }
-        CategoryEntity category = categoryRepo.getById(createJobRequest.getCategory());
+        CategoryEntity category = categoryRepo.getById(category_id);
         JobEntity jobEntity = new JobEntity();
         jobEntity.setCategory(category);
         jobEntity.setLocation(createJobRequest.getLocation());
@@ -55,6 +56,32 @@ public class JobService {
         jobEntity.setDescription(createJobRequest.getDescription());
         UserEntity user = userRepo.getById(createJobRequest.getUser_id());
         jobEntity.setCreatedBy(user);
+        jobRepo.save(jobEntity);
+    }
+
+    public void updateJob(UpdateJobRequest updateJobRequest) throws JobValidationException{
+        System.out.println(updateJobRequest.getTitle());
+        System.out.println(updateJobRequest.getCategory());
+        System.out.println(updateJobRequest.getRequirements());
+        System.out.println(updateJobRequest.getDescription());
+        System.out.println(updateJobRequest.getLocation());
+        System.out.println(updateJobRequest.getUser_id());
+        System.out.println(updateJobRequest.getSalary_range());
+
+        Long category_id = updateJobRequest.getCategory();
+        if(category_id == 0){
+            throw new JobValidationException("Invalid category");
+        }
+        CategoryEntity category = categoryRepo.getById(category_id);
+
+        JobEntity jobEntity = jobRepo.getById(updateJobRequest.getJob_id());
+
+        jobEntity.setCategory(category);
+        jobEntity.setLocation(updateJobRequest.getLocation());
+        jobEntity.setTitle(updateJobRequest.getTitle());
+        jobEntity.setSalary_range(updateJobRequest.getSalary_range());
+        jobEntity.setRequirements(updateJobRequest.getRequirements());
+        jobEntity.setDescription(updateJobRequest.getDescription());
         jobRepo.save(jobEntity);
 
     }

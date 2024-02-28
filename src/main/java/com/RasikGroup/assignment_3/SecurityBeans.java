@@ -44,6 +44,7 @@ public class SecurityBeans {
                             .requestMatchers("/user/**").permitAll()
                             .requestMatchers("/jobs/applied/{id}").permitAll()
                             .requestMatchers("/jobs/applied/delete").permitAll()
+                            .requestMatchers("/jobs/posted/update").permitAll()
                             .anyRequest().authenticated())
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin(AbstractAuthenticationFilterConfigurer::permitAll);
