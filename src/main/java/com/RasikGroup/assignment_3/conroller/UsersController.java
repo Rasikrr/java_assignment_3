@@ -32,6 +32,4 @@ public class UsersController {
         return ResponseEntity.badRequest().body(userDTO);
     }
 
-
-
 }

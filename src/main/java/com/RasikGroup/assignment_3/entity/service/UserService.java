@@ -94,13 +94,14 @@ public class UserService implements UserDetailsService {
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                         loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         UserDTO userDTO = new UserDTO();
+        UserEntity userEntity = userRepo.findByUsername(authentication.getName());
         userDTO.setUsername(authentication.getName());
         userDTO.setRoles(authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList())); // Assuming authorities are strings
         userDTO.set_auth(authentication.isAuthenticated()); // Renamed to follow standard naming conventions
+        userDTO.setId(userEntity.getId());
         return userDTO;
     }
 

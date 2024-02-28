@@ -1,11 +1,12 @@
 package com.RasikGroup.assignment_3.entity.entities;
 
-import com.RasikGroup.assignment_3.dtos.CreateJobRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 
 @Getter
@@ -26,6 +27,18 @@ public class JobEntity {
     private CategoryEntity category;
 
     private String Description;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity createdBy;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "job_applications",
+            joinColumns = @JoinColumn(name = "job_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<UserEntity> appliedBy;
 
     @Override
     public String toString(){

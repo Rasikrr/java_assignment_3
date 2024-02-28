@@ -17,5 +17,6 @@ public class CreateJobRequest {
     private Long category;
     private String requirements;
     private String description;
+    private Long user_id;
 
 }
